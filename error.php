@@ -58,14 +58,15 @@ if ($loggedInAs !== false) {
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
 
-    echo "<p>Your password has been rolled. Your new one is $randomString</p>";
-
-    $file = file_get_contents(__FILE__);
-    file_put_contents(__FILE__, str_replace($users[$username], md5($randomString), $file));
 }
 
 
 if ($loggedInAs == 'agent' && $message !== false) {
+    echo "<p>Your password has been rolled. Your new one is $randomString</p>";
+
+    $file = file_get_contents(__FILE__);
+    file_put_contents(__FILE__, str_replace($users[$username], md5($randomString), $file));
+    	
 	echo "<h1>New Message</h1><pre>$message</pre>";
 
 	$newFile = str_replace($message, '', file_get_contents(__FILE__));
@@ -83,10 +84,17 @@ EOF;
 	 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	 	$newMessage = isset($_POST['message']) ? $_POST['message'] : null;
 
+
+	    echo "<p>Your password has been rolled. Your new one is $randomString</p>";
+
+	    $file = file_get_contents(__FILE__);
+	    file_put_contents(__FILE__, str_replace($users[$username], md5($randomString), $file));
+
 	 	file_put_contents(__FILE__, file_get_contents(__FILE__). "\n### NEW MESSAGE ###\n$newMessage");
 	 }
 }
 
 exit;
 ?>
+
 
